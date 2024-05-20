@@ -20,4 +20,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\Calendars\" />
+    <Folder Include="ViewModels\Events\" />
+  </ItemGroup>
+
 </Project>

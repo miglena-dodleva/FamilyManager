@@ -45,6 +45,11 @@ namespace FamilyManager.Repositories
                       .ToList();
         }
 
+        public T GetById(int id)
+        {
+            return Items.Where(item => item.Id == id).FirstOrDefault();
+        }
+
         public T FirstOrDefault(Expression<Func<T, bool>> filter)
         {
             return Items
@@ -75,6 +80,16 @@ namespace FamilyManager.Repositories
         public void Delete(T item)
         {
             Items.Remove(item);
+            Context.SaveChanges();
+        }
+
+        public void Add(T item)
+        {
+            Context.Set<T>().Add(item);
+        }
+
+        public void SaveChanges()
+        {
             Context.SaveChanges();
         }
     }

@@ -6,5 +6,7 @@ namespace FamilyManager.Repositories
     {
         public UsersRepository() : base() { }
         public UsersRepository(UnitOfWork uow) : base(uow) { }
+        //public void SaveChanges() { }
     }
+
 }
