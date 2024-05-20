@@ -1,3 +1,5 @@
+using FamilyManager.Repositories;
+
 namespace FamilyManager
 {
     public class Program
@@ -5,6 +7,10 @@ namespace FamilyManager
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Add DbContext
+            //builder.Services.AddDbContext<FamilyManagerDbContext>(options =>
+             //   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
