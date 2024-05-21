@@ -4,16 +4,19 @@ namespace FamilyManager.Entities
 {
     public class Task : BaseEntity
     {
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public string Status { get; set; }
+
+        public DateTime Deadline { get; set; }
+        
         public int OwnerId { get; set; }
         
         public int AssigneeId { get; set; }
         
         public int ToDoListId { get; set; }
-        
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Status { get; set; }
-        public DateTime Deadline { get; set; }
 
         [ForeignKey("OwnerId")]
         public virtual User Owner { get; set; }

@@ -5,14 +5,6 @@ namespace FamilyManager.ViewModels.Users
 {
     public class CreateVM
     {
-        [DisplayName("Username: ")]
-        [Required(ErrorMessage = "*This field is Required!")]
-        public string Username { get; set; }
-
-        [DisplayName("Password: ")]
-        [Required(ErrorMessage = "*This field is Required!")]
-        public string Password { get; set; }
-
         [DisplayName("First Name: ")]
         [Required(ErrorMessage = "*This field is Required!")]
         public string FirstName { get; set; }
@@ -20,6 +12,14 @@ namespace FamilyManager.ViewModels.Users
         [DisplayName("Last Name: ")]
         [Required(ErrorMessage = "*This field is Required!")]
         public string LastName { get; set; }
+
+        [DisplayName("Username: ")]
+        [Required(ErrorMessage = "*This field is Required!")]
+        public string Username { get; set; }
+
+        [DisplayName("Password: ")]
+        [Required(ErrorMessage = "*This field is Required!")]
+        public string Password { get; set; }
 
         [DisplayName("Email: ")]
         [Required(ErrorMessage = "*This field is Required!")]

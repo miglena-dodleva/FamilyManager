@@ -5,6 +5,7 @@ namespace FamilyManager.ViewModels.Users
 {
     public class EditVM
     {
+        [Key]
         public int Id { get; set; }
 
         [DisplayName("Username: ")]
