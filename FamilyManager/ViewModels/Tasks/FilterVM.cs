@@ -6,7 +6,7 @@ namespace FamilyManager.ViewModels.Tasks
     {
 
         public string Status { get; set; }
-
+        public int? OwnerId { get; set; }
         public int? AssigneeId { get; set; }
     }
 }
