@@ -1,4 +1,5 @@
 ﻿using FamilyManager.Entities;
+using FamilyManager.Enums;
 
 namespace FamilyManager.ViewModels.Events
 {

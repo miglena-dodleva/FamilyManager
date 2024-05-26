@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FamilyManager.Entities
 {
-    public class User : BaseEntity
+    public class User
     {
+        [Key]
+        public int Id { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
@@ -18,10 +22,10 @@ namespace FamilyManager.Entities
         public virtual Family Family { get; set; }
 
         public virtual ICollection<SharedCalendar> SharedCalendars { get; set; }
-        public virtual ICollection<UserToCalendar> UserToCalendars { get; set; }
-        public virtual ICollection<UserToToDoList> UserToToDoLists { get; set; }
-        public virtual ICollection<Task> OwnedTasks { get; set; } // Задачи, които потребителят е създал
-        public virtual ICollection<Task> AssignedTasks { get; set; } // Задачи, възложени на потребителя
+        public virtual ICollection<Calendar> Calendars { get; set; }
+        public virtual ICollection<ToDoList> ToDoLists { get; set; }
+        public virtual ICollection<Task> OwnedTasks { get; set; } 
+        public virtual ICollection<Task> AssignedTasks { get; set; } 
 
     }
 }

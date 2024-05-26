@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 namespace FamilyManager.Repositories
 {
     public abstract class BaseRepository<T>
-        where T :BaseEntity
+        where T : class
     {
         private DbContext Context { get; set; }
         private DbSet<T> Items { get; set; }
@@ -35,7 +35,7 @@ namespace FamilyManager.Repositories
                 query = query.Where(filter);
 
             if (order == null)
-                query = query.OrderBy(i => i.Id);
+                query = query.OrderBy(i => EF.Property<int>(i, "Id"));
             else
                 query = query.OrderBy(order);
 
@@ -47,7 +47,7 @@ namespace FamilyManager.Repositories
 
         public T GetById(int id)
         {
-            return Items.Where(item => item.Id == id).FirstOrDefault();
+            return Items.FirstOrDefault(i => EF.Property<int>(i, "Id") == id);
         }
 
         public T FirstOrDefault(Expression<Func<T, bool>> filter)
@@ -69,7 +69,9 @@ namespace FamilyManager.Repositories
 
         public void Save(T item)
         {
-            if (item.Id > 0)
+            var itemId = (int)typeof(T).GetProperty("Id").GetValue(item, null);
+
+            if (itemId > 0)
                 Items.Update(item);
             else
                 Items.Add(item);

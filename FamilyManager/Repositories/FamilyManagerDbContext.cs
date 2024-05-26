@@ -13,9 +13,7 @@ namespace FamilyManager.Repositories
         public DbSet<ToDoList> ToDoLists { get; set; }
         public DbSet<Entities.Task> Tasks { get; set; }
         public DbSet<SharedCalendar> SharedCalendars { get; set; }
-        public DbSet<UserToCalendar> UserToCalendars { get; set; }
-        public DbSet<UserToToDoList> UserToToDoLists { get; set; }
-
+        
         public FamilyManagerDbContext()
         {
             this.Users = this.Set<User>();
@@ -25,8 +23,7 @@ namespace FamilyManager.Repositories
             this.ToDoLists = this.Set<ToDoList>();
             this.Tasks = this.Set<Entities.Task>();
             this.SharedCalendars = this.Set<SharedCalendar>();
-            this.UserToCalendars = this.Set<UserToCalendar>();
-            this.UserToToDoLists = this.Set<UserToToDoList>();
+            
         }
 
 
@@ -53,61 +50,37 @@ namespace FamilyManager.Repositories
 
             builder.Entity<User>()
                 .Property(u => u.FamilyId)
-                .IsRequired(false); // Указва, че FamilyId не е задължително
+                .IsRequired(false); // FamilyId не е задължително
 
             builder.Entity<SharedCalendar>()
                 .HasOne(sc => sc.User)
                 .WithMany(u => u.SharedCalendars)
                 .HasForeignKey(sc => sc.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull);  // Промяна тук
+                .OnDelete(DeleteBehavior.ClientSetNull); 
 
             builder.Entity<SharedCalendar>()
                 .HasOne(sc => sc.Calendar)
                 .WithMany(c => c.SharedCalendars)
                 .HasForeignKey(sc => sc.CalendarId)
-                .OnDelete(DeleteBehavior.ClientNoAction);  // Промяна тук
-
-            builder.Entity<UserToCalendar>()
-                .HasOne(utc => utc.User)
-                .WithMany(u => u.UserToCalendars)
-                .HasForeignKey(utc => utc.UserId)
-                .OnDelete(DeleteBehavior.Restrict); // Предотвратяване на каскадно изтриване
-
-            builder.Entity<UserToCalendar>()
-                .HasOne(utc => utc.Calendar)
-                .WithMany(c => c.UserToCalendars)
-                .HasForeignKey(utc => utc.CalendarId)
-                .OnDelete(DeleteBehavior.Restrict); // Същото тук
+                .OnDelete(DeleteBehavior.ClientNoAction);  
 
             builder.Entity<Entities.Task>()
                 .HasOne(t => t.Owner)
                 .WithMany(u => u.OwnedTasks)
                 .HasForeignKey(t => t.OwnerId)
-                .OnDelete(DeleteBehavior.Restrict);  // Избягване на каскадно изтриване
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Entities.Task>()
                 .HasOne(t => t.Assignee)
                 .WithMany(u => u.AssignedTasks)
                 .HasForeignKey(t => t.AssigneeId)
-                .OnDelete(DeleteBehavior.Restrict);  // Същото тук
+                .OnDelete(DeleteBehavior.Restrict); 
 
             builder.Entity<Entities.Task>()
                 .HasOne(t => t.ToDoList)
                 .WithMany(tdl => tdl.Tasks)
                 .HasForeignKey(t => t.ToDoListId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<UserToToDoList>()
-                .HasOne(utt => utt.User)
-                .WithMany(u => u.UserToToDoLists)
-                .HasForeignKey(utt => utt.UserId)
-                .OnDelete(DeleteBehavior.Restrict); // Изменете тук
-
-            builder.Entity<UserToToDoList>()
-                .HasOne(utt => utt.ToDoList)
-                .WithMany(tdl => tdl.UserToToDoLists)
-                .HasForeignKey(utt => utt.ToDoListId)
-                .OnDelete(DeleteBehavior.Restrict); // Изменете тук
 
 
         }

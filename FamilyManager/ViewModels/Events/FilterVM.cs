@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using FamilyManager.Entities;
+using FamilyManager.Enums;
 
 namespace FamilyManager.ViewModels.Events
 {

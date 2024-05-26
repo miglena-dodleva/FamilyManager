@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using FamilyManager.Enums;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace FamilyManager.ViewModels.Tasks
@@ -17,7 +18,7 @@ namespace FamilyManager.ViewModels.Tasks
 
         [DisplayName("Status: ")]
         [Required(ErrorMessage = "*This field is Required!")]
-        public string Status { get; set; }
+        public Status Status { get; set; }
 
         [DisplayName("Deadline: ")]
         [Required(ErrorMessage = "*This field is Required!")]

@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using FamilyManager.Enums;
+using System.ComponentModel;
 
 namespace FamilyManager.ViewModels.Tasks
 {
     public class FilterVM
     {
 
-        public string Status { get; set; }
+        public Status Status { get; set; }
         public int? OwnerId { get; set; }
         public int? AssigneeId { get; set; }
     }

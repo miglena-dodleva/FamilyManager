@@ -1,9 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using FamilyManager.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FamilyManager.Entities
 {
-    public class Event : BaseEntity
+    public class Event
     {
+        [Key]
+        public int Id { get; set; }
+
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
@@ -20,25 +25,4 @@ namespace FamilyManager.Entities
         public virtual Calendar Calendar { get; set; }
     }
 
-    public enum ThemeColor
-    {
-        Red,
-        Blue,
-        Green,
-        Yellow,
-        Orange,
-        Purple,
-        Pink,
-        Gray,
-        Black
-    }
-
-    public enum RepeatType
-    {
-        None,
-        Daily,
-        Weekly,
-        Monthly,
-        Yearly
-    }
 }
