@@ -4,6 +4,6 @@ namespace FamilyManager.ViewModels.SharedCalendars
 {
     public class IndexVM
     {
-        public List<SharedCalendar> Items { get; set; }
+        public List<CalendarToUser> Items { get; set; }
     }
 }

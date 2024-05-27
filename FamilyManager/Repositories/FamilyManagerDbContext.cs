@@ -1,19 +1,10 @@
 ﻿using FamilyManager.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace FamilyManager.Repositories
 {
     public class FamilyManagerDbContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Family> Families { get; set; }
-        public DbSet<Event> Events { get; set; }
-        public DbSet<Calendar> Calendars { get; set; }
-        public DbSet<ToDoList> ToDoLists { get; set; }
-        public DbSet<Entities.Task> Tasks { get; set; }
-        public DbSet<SharedCalendar> SharedCalendars { get; set; }
-        
         public FamilyManagerDbContext()
         {
             this.Users = this.Set<User>();
@@ -22,8 +13,10 @@ namespace FamilyManager.Repositories
             this.Calendars = this.Set<Calendar>();
             this.ToDoLists = this.Set<ToDoList>();
             this.Tasks = this.Set<Entities.Task>();
-            this.SharedCalendars = this.Set<SharedCalendar>();
-            
+            this.CalendarToUsers = this.Set<CalendarToUser>();
+            this.CalendarToFamilies = this.Set<CalendarToFamily>();
+            this.UserToToDoLists = this.Set<UserToToDoList>();
+            this.UserToFamilies = this.Set<UserToFamily>();
         }
 
 
@@ -52,37 +45,58 @@ namespace FamilyManager.Repositories
                 .Property(u => u.FamilyId)
                 .IsRequired(false); // FamilyId не е задължително
 
-            builder.Entity<SharedCalendar>()
+            builder.Entity<CalendarToUser>()
                 .HasOne(sc => sc.User)
-                .WithMany(u => u.SharedCalendars)
+                .WithMany(u => u.CalendarToUsers)
                 .HasForeignKey(sc => sc.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull); 
 
-            builder.Entity<SharedCalendar>()
+            builder.Entity<CalendarToUser>()
                 .HasOne(sc => sc.Calendar)
-                .WithMany(c => c.SharedCalendars)
+                .WithMany(c => c.CalendarToUsers)
                 .HasForeignKey(sc => sc.CalendarId)
-                .OnDelete(DeleteBehavior.ClientNoAction);  
+                .OnDelete(DeleteBehavior.ClientNoAction);
+
+            builder.Entity<UserToToDoList>()
+                .HasOne(sc => sc.User)
+                .WithMany(u => u.UserToToDoLists)
+                .HasForeignKey(sc => sc.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            builder.Entity<UserToToDoList>()
+                .HasOne(sc => sc.ToDoList)
+                .WithMany(c => c.UserToToDoLists)
+                .HasForeignKey(sc => sc.ToDoListId)
+                .OnDelete(DeleteBehavior.ClientNoAction);
 
             builder.Entity<Entities.Task>()
                 .HasOne(t => t.Owner)
-                .WithMany(u => u.OwnedTasks)
+                .WithMany()
                 .HasForeignKey(t => t.OwnerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Entities.Task>()
                 .HasOne(t => t.Assignee)
-                .WithMany(u => u.AssignedTasks)
+                .WithMany()
                 .HasForeignKey(t => t.AssigneeId)
                 .OnDelete(DeleteBehavior.Restrict); 
-
+          
             builder.Entity<Entities.Task>()
                 .HasOne(t => t.ToDoList)
                 .WithMany(tdl => tdl.Tasks)
                 .HasForeignKey(t => t.ToDoListId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-
         }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Family> Families { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Calendar> Calendars { get; set; }
+        public DbSet<ToDoList> ToDoLists { get; set; }
+        public DbSet<Entities.Task> Tasks { get; set; }
+        public DbSet<CalendarToUser> CalendarToUsers { get; set; }
+        public DbSet<CalendarToFamily> CalendarToFamilies { get; set; }
+        public DbSet<UserToToDoList> UserToToDoLists { get; set; }
+        public DbSet<UserToFamily> UserToFamilies { get; set; }
     }
 }

@@ -20,13 +20,16 @@ namespace FamilyManager.Entities
         public int? FamilyId { get; set; }
         
         [ForeignKey("FamilyId")]
-        public virtual Family Family { get; set; }
+        public virtual Family? Family { get; set; }
 
-        public virtual ICollection<SharedCalendar> SharedCalendars { get; set; }
-        public virtual ICollection<Calendar> Calendars { get; set; }
-        public virtual ICollection<ToDoList> ToDoLists { get; set; }
-        public virtual ICollection<Task> OwnedTasks { get; set; } 
-        public virtual ICollection<Task> AssignedTasks { get; set; } 
+      //  public virtual ICollection<Calendar> Calendars { get; set; }
+      //  public virtual ICollection<ToDoList> ToDoLists { get; set; }
+       // public virtual ICollection<Task> OwnedTasks { get; set; } 
+       // public virtual ICollection<Task> AssignedTasks { get; set; }
+       
+        public virtual ICollection<Task> Tasks { get; set; }
 
+        public virtual ICollection<CalendarToUser> CalendarToUsers { get; set; }
+        public virtual ICollection<UserToToDoList> UserToToDoLists { get; set; }
     }
 }

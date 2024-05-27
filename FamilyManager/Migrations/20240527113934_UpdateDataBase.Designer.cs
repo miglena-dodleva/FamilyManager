@@ -4,6 +4,7 @@ using FamilyManager.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FamilyManager.Migrations
 {
     [DbContext(typeof(FamilyManagerDbContext))]
-    partial class FamilyManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240527113934_UpdateDataBase")]
+    partial class UpdateDataBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,9 +191,6 @@ namespace FamilyManager.Migrations
                     b.Property<int>("ToDoListId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AssigneeId");
@@ -198,8 +198,6 @@ namespace FamilyManager.Migrations
                     b.HasIndex("OwnerId");
 
                     b.HasIndex("ToDoListId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Tasks");
                 });
@@ -333,7 +331,7 @@ namespace FamilyManager.Migrations
             modelBuilder.Entity("FamilyManager.Entities.Calendar", b =>
                 {
                     b.HasOne("FamilyManager.Entities.User", "Owner")
-                        .WithMany()
+                        .WithMany("Calendars")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -392,13 +390,13 @@ namespace FamilyManager.Migrations
             modelBuilder.Entity("FamilyManager.Entities.Task", b =>
                 {
                     b.HasOne("FamilyManager.Entities.User", "Assignee")
-                        .WithMany()
+                        .WithMany("AssignedTasks")
                         .HasForeignKey("AssigneeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FamilyManager.Entities.User", "Owner")
-                        .WithMany()
+                        .WithMany("OwnedTasks")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -408,10 +406,6 @@ namespace FamilyManager.Migrations
                         .HasForeignKey("ToDoListId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("FamilyManager.Entities.User", null)
-                        .WithMany("Tasks")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("Assignee");
 
@@ -423,7 +417,7 @@ namespace FamilyManager.Migrations
             modelBuilder.Entity("FamilyManager.Entities.ToDoList", b =>
                 {
                     b.HasOne("FamilyManager.Entities.User", "Owner")
-                        .WithMany()
+                        .WithMany("ToDoLists")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -434,7 +428,7 @@ namespace FamilyManager.Migrations
             modelBuilder.Entity("FamilyManager.Entities.User", b =>
                 {
                     b.HasOne("FamilyManager.Entities.Family", "Family")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("FamilyId");
 
                     b.Navigation("Family");
@@ -489,6 +483,8 @@ namespace FamilyManager.Migrations
             modelBuilder.Entity("FamilyManager.Entities.Family", b =>
                 {
                     b.Navigation("CalendarToFamilies");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("FamilyManager.Entities.ToDoList", b =>
@@ -500,9 +496,15 @@ namespace FamilyManager.Migrations
 
             modelBuilder.Entity("FamilyManager.Entities.User", b =>
                 {
+                    b.Navigation("AssignedTasks");
+
                     b.Navigation("CalendarToUsers");
 
-                    b.Navigation("Tasks");
+                    b.Navigation("Calendars");
+
+                    b.Navigation("OwnedTasks");
+
+                    b.Navigation("ToDoLists");
 
                     b.Navigation("UserToToDoLists");
                 });

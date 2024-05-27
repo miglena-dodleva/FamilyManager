@@ -9,12 +9,14 @@ namespace FamilyManager.Entities
         public int Id { get; set; }
 
         public string Name { get; set; }
+
         public int OwnerId { get; set; }
 
         [ForeignKey("OwnerId")]
         public virtual User Owner { get; set; }
 
-        public virtual ICollection<SharedCalendar> SharedCalendars { get; set; }
+        public virtual ICollection<CalendarToUser> CalendarToUsers { get; set; }
+        public virtual ICollection<CalendarToFamily> CalendarToFamilies { get; set; }
         public virtual ICollection<Event> Events { get; set; }
     }
 }

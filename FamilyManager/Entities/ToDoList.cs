@@ -15,6 +15,8 @@ namespace FamilyManager.Entities
         public virtual User Owner { get; set; }
 
         public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<UserToToDoList> UserToToDoLists { get; set; }
+
 
     }
 }
