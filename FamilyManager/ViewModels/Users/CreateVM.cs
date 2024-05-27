@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using FamilyManager.Enums;
 
 namespace FamilyManager.ViewModels.Users
 {
@@ -34,5 +35,8 @@ namespace FamilyManager.ViewModels.Users
         [DisplayName("Family ID: ")]
         [Required(ErrorMessage = "*This field is Required!")]
         public int? FamilyId { get; set; }
+
+        [Display(Name = "Family Role")]
+        public Role FamilyRole { get; set; }
     }
 }

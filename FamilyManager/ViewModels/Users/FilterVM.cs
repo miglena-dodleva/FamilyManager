@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using FamilyManager.Enums;
+using System.ComponentModel;
 
 namespace FamilyManager.ViewModels.Users
 {
@@ -7,5 +8,6 @@ namespace FamilyManager.ViewModels.Users
         public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public Role? FamilyRole { get; set; }
     }
 }
