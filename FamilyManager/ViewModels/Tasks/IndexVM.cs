@@ -1,4 +1,5 @@
 ﻿using FamilyManager.Entities;
+using Task = FamilyManager.Entities.Task;
 
 namespace FamilyManager.ViewModels.Tasks
 {
@@ -8,7 +9,7 @@ namespace FamilyManager.ViewModels.Tasks
 
         public ToDoList ToDoList { get; set; }
 
-        public List<DetailsVM> Items { get; set; }
+        public List<Task> Items { get; set; }
         public FilterVM Filter { get; set; }
     }
 }

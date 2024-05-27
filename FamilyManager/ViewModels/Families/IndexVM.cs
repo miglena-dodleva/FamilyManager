@@ -1,7 +1,10 @@
-﻿namespace FamilyManager.ViewModels.Families
+﻿using FamilyManager.Entities;
+
+namespace FamilyManager.ViewModels.Families
 {
     public class IndexVM
     {
-        public List<DetailsVM> Items { get; set; }
+        public List<string> MemberNames { get; set; } 
+        public List<Family> Items { get; set; }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace FamilyManager.ViewModels.SharedCalendar
+namespace FamilyManager.ViewModels.SharedCalendars
 {
-    public class CreateVM
+    public class EditVM
     {
+        public int Id { get; set; }
 
         [DisplayName("Calendar ID: ")]
         [Required(ErrorMessage = "*This field is Required!")]
