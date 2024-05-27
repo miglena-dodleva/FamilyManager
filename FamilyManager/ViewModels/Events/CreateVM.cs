@@ -41,7 +41,7 @@ namespace FamilyManager.ViewModels.Events
         [DisplayName("Theme Color: ")]
         public ThemeColor ThemeColor { get; set; }
 
-        public int CalendarId { get; set; } // set automatically 
+        public int CalendarId { get; set; } 
 
         
     }

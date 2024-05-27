@@ -25,8 +25,8 @@ namespace FamilyManager.ViewModels.Tasks
         [Required(ErrorMessage = "*This field is Required!")]
         public int AssigneeId { get; set; }
 
-        public int ToDoListId { get; set; } // set automatically in the controller
+        public int ToDoListId { get; set; } 
 
-        public int OwnerId { get; set; } // set automatically in the controller
+        public int OwnerId { get; set; }
     }
 }
